@@ -120,16 +120,9 @@ xdg-open index.html   # Linux
 
 ## 👩‍💻 Author
 
-**Your Name**
-- GitHub: [@YOUR_USERNAME](https://github.com/YOUR_USERNAME)
-- LinkedIn: [linkedin.com/in/YOUR_PROFILE](https://linkedin.com/in/YOUR_PROFILE)
+**Aditi Sonone**
+- GitHub: [@YOUR_USERNAME](https://github.com/AditiSonone12)
+- LinkedIn: [linkedin.com/in/YOUR_PROFILE](https://linkedin.com/in/aditi-sonone-542860341)
 
 ---
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
 > Built as a portfolio project to demonstrate front-end development skills — DOM manipulation, Canvas API, responsive design, and clean vanilla JS architecture.
