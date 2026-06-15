@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExpenseIQ — Smart Expense Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">ExpenseIQ</span>
+      </div>
+      <div class="header-actions">
+        <button class="btn-icon" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light mode">
+          <span id="themeIcon">☀</span>
+        </button>
+        <button class="btn-primary" id="openModalBtn">+ Add Expense</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- SUMMARY CARDS -->
+    <section class="summary-grid" aria-label="Financial summary">
+      <div class="card card--total">
+        <p class="card-label">Total Spent</p>
+        <p class="card-amount" id="totalSpent">₹0.00</p>
+        <p class="card-sub" id="totalCount">0 transactions</p>
+      </div>
+      <div class="card card--month">
+        <p class="card-label">This Month</p>
+        <p class="card-amount" id="monthSpent">₹0.00</p>
+        <p class="card-sub" id="monthName"></p>
+      </div>
+      <div class="card card--top">
+        <p class="card-label">Top Category</p>
+        <p class="card-amount" id="topCategory">—</p>
+        <p class="card-sub" id="topCategoryAmt">No data yet</p>
+      </div>
+      <div class="card card--avg">
+        <p class="card-label">Daily Average</p>
+        <p class="card-amount" id="dailyAvg">₹0.00</p>
+        <p class="card-sub">Based on all time</p>
+      </div>
+    </section>
+
+    <!-- CHARTS + RECENT ROW -->
+    <section class="content-grid">
+
+      <!-- DONUT CHART -->
+      <div class="panel panel--chart">
+        <div class="panel-header">
+          <h2 class="panel-title">By Category</h2>
+          <span class="panel-badge" id="chartPeriod">All time</span>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="donutChart" width="220" height="220" aria-label="Expense breakdown by category"></canvas>
+          <div class="chart-center" id="chartCenter">
+            <p class="chart-center-label">Total</p>
+            <p class="chart-center-value" id="chartCenterVal">₹0</p>
+          </div>
+        </div>
+        <ul class="legend" id="legend"></ul>
+      </div>
+
+      <!-- RECENT TRANSACTIONS -->
+      <div class="panel panel--recent">
+        <div class="panel-header">
+          <h2 class="panel-title">Recent Transactions</h2>
+          <div class="filter-row">
+            <select class="select-sm" id="filterCategory" aria-label="Filter by category">
+              <option value="all">All</option>
+            </select>
+            <select class="select-sm" id="sortOrder" aria-label="Sort order">
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+              <option value="highest">Highest</option>
+              <option value="lowest">Lowest</option>
+            </select>
+          </div>
+        </div>
+        <ul class="transactions-list" id="transactionsList">
+          <li class="empty-state" id="emptyState">
+            <span class="empty-icon">📭</span>
+            <p>No expenses yet.</p>
+            <p class="empty-sub">Add your first one above.</p>
+          </li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- MONTHLY TREND BAR CHART -->
+    <section class="panel panel--trend">
+      <div class="panel-header">
+        <h2 class="panel-title">Monthly Trend</h2>
+        <span class="panel-badge" id="trendYear"></span>
+      </div>
+      <div class="bar-chart-wrapper">
+        <div class="bar-chart" id="barChart"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ADD EXPENSE MODAL -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">New Expense</h2>
+        <button class="btn-icon" id="closeModalBtn" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="field-group">
+          <label class="field-label" for="expenseTitle">Description</label>
+          <input class="field-input" type="text" id="expenseTitle" placeholder="e.g. Zomato lunch order" maxlength="60" />
+          <span class="field-error" id="titleError"></span>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="expenseAmount">Amount (₹)</label>
+            <input class="field-input" type="number" id="expenseAmount" placeholder="0.00" min="0.01" step="0.01" />
+            <span class="field-error" id="amountError"></span>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="expenseDate">Date</label>
+            <input class="field-input" type="date" id="expenseDate" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="expenseCategory">Category</label>
+          <select class="field-input" id="expenseCategory">
+            <option value="">— Select category —</option>
+            <option value="Food">🍔 Food & Dining</option>
+            <option value="Transport">🚗 Transport</option>
+            <option value="Shopping">🛍 Shopping</option>
+            <option value="Entertainment">🎬 Entertainment</option>
+            <option value="Health">💊 Health & Medical</option>
+            <option value="Education">📚 Education</option>
+            <option value="Utilities">⚡ Utilities</option>
+            <option value="Rent">🏠 Rent & Housing</option>
+            <option value="Other">🔖 Other</option>
+          </select>
+          <span class="field-error" id="categoryError"></span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="expenseNote">Note <span class="optional">(optional)</span></label>
+          <input class="field-input" type="text" id="expenseNote" placeholder="Any extra details..." maxlength="100" />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-ghost" id="cancelBtn">Cancel</button>
+        <button class="btn-primary" id="saveExpenseBtn">Save Expense</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DELETE CONFIRM TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
