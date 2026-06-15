@@ -122,7 +122,7 @@ xdg-open index.html   # Linux
 
 **Aditi Sonone**
 - GitHub: [AditiSonone12](https://github.com/AditiSonone12)
-- LinkedIn: [linkedin.com/in/YOUR_PROFILE](https://linkedin.com/in/aditi-sonone-542860341)
+- LinkedIn: [linkedin.com/in/aditi-sonone-542860341](https://linkedin.com/in/aditi-sonone-542860341)
 
 ---
 > Built as a portfolio project to demonstrate front-end development skills — DOM manipulation, Canvas API, responsive design, and clean vanilla JS architecture.
