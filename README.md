@@ -121,7 +121,7 @@ xdg-open index.html   # Linux
 ## 👩‍💻 Author
 
 **Aditi Sonone**
-- GitHub: [@YOUR_USERNAME](https://github.com/AditiSonone12)
+- GitHub: [AditiSonone12](https://github.com/AditiSonone12)
 - LinkedIn: [linkedin.com/in/YOUR_PROFILE](https://linkedin.com/in/aditi-sonone-542860341)
 
 ---
